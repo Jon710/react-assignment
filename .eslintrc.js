@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ['airbnb', 'prettier', 'prettier/react'],
+  extends: ['airbnb', 'prettier'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -31,6 +31,9 @@ module.exports = {
       { allowShortCircuit: true, allowTernary: true },
     ],
     'no-console': ['warn'],
+    'react/prop-types': 'off',
+    'no-plusplus': ['off'],
+    'no-await-in-loop': 'off',
     'no-param-reassign': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
