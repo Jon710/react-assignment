@@ -1,5 +1,3 @@
-/* eslint-disable no-inner-declarations */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
