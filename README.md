@@ -23,12 +23,11 @@
   However, in a production app with thousands of users the UI is of utmost importance. In this case, I'd prefer styled-components because I have more control over the UI and it's better for performance. The reason for this is that with inline styles, the browser spends a lot more time scripting and rendering.
   The better way is to import the CSS or CSS-in-JS file into the component.
 
-When considering how many people to load at a time, I decided to use an on-demand approach. For this I chose the Pagination component provided by Material UI to show them as the user sees fit. Not only it's better for user experience, it also prevents the app from being slow in the case of having more characters to display.
+  When considering how many people to load at a time, I decided to use an on-demand approach. For this I chose the Pagination component provided by Material UI to show them as the user sees fit. Not only it's better for user experience, it also prevents the app from being slow in the case of having more characters to display.
 
-I opted for Redux as global state management because I've always worked with it and it fits my needs well. I also like how it separates concerns and helps maintain the app.
+  I opted for Redux as global state management because I've always worked with it and it fits my needs well. I also like how it separates concerns and helps maintain the app.
 
-I managed to optimize the app by creating a helper function getPlanet() that gets the planet name from the url. Then, I was able to call this function inside
-getCharacters(), put the character planet in one object with its name and make no more than two combined API calls. It optimized a few unnecessary calls.
+  I managed to optimize the app by creating a helper function getPlanet() that gets the planet name from the url. Then, I was able to call this function inside getCharacters(), put the character planet in one object with its name and make no more than two combined API calls. It optimized a few unnecessary calls.
 
 ## Demo
 
