@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-inner-declarations */
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
+import Pagination from '@material-ui/lab/Pagination';
 
 import SearchFilter from '../../components/SearchFilter';
 import CharactersList from '../../components/CharactersList';
@@ -13,6 +16,7 @@ import {
 } from '../../store/actions/characters';
 
 export default function Home() {
+  const [pageNumber, setPageNumber] = useState(1);
   const dispatch = useDispatch();
 
   const filter = useSelector((state) => state.characters.filter);
@@ -29,22 +33,35 @@ export default function Home() {
     async function getCharacters() {
       dispatch(loadingCharacters());
       await api
-        .get('people/', { params: filter })
+        .get(`people/?page=${pageNumber}`, { params: filter })
         .then((response) => {
           const peopleList = response.data.results.map((people) => ({
             ...people,
-            characterPlanet: people.homeworld && getPlanet(people.homeworld),
+            characterPlanet: getPlanet(people.homeworld),
           }));
 
+          function compare(a, b) {
+            const nameA = a.name.toUpperCase();
+            const nameB = b.name.toUpperCase();
+
+            let comparison = 0;
+            if (nameA > nameB) {
+              comparison = 1;
+            } else if (nameA < nameB) {
+              comparison = -1;
+            }
+            return comparison;
+          }
+
+          peopleList.sort(compare);
           dispatch(listCharacters(peopleList));
         })
         .catch((error) => {
           dispatch(failureCharacters(error));
         });
     }
-
     getCharacters();
-  }, [dispatch, filter, planets]);
+  }, [dispatch, filter, planets, pageNumber]);
 
   return (
     <Container maxWidth="lg">
@@ -61,6 +78,14 @@ export default function Home() {
         </Grid>
         <CharactersList />
       </Grid>
+      <br />
+      <Pagination
+        count={10}
+        onChange={(e, page) => {
+          setPageNumber(page);
+        }}
+        size="large"
+      />
     </Container>
   );
 }

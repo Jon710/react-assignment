@@ -62,7 +62,7 @@ export default function CharactersList() {
       {(characters &&
         characters.length > 0 &&
         characters.map((character, key) => (
-          <Grid key={key} item lg={4} md={6} xs={12}>
+          <Grid key={key} item lg={6} md={6} xs={12}>
             <Character
               item={character}
               favorite={favorite[character.name]}
